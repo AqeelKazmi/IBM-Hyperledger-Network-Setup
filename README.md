@@ -1,5 +1,6 @@
 # IBM-Hyperledger-Network-Setup
 This repository provides the way to setup hyperledger network on ibm cloud.
+
 1. Place your fabric codes folder inside "contracts" folder, then create bna using the following command.
   
   **composer archive create -t dir -n contracts/hyperledger-power-watson -a contracts/dist/hyperledger-power-watson.bna**
@@ -11,55 +12,61 @@ This repository provides the way to setup hyperledger network on ibm cloud.
    For both plans set your versions by following the [link given](https://console.bluemix.net/docs/services/blockchain/develop_install.html#installing-a-development-environment)
    Once you have set your local environment according to selected plan, proceed with further commands.
 
-3. In the Network Monitor of Blockchain service, Change to the 'Overview' page and press the Connection Profile button and  in the popup press Download. Rename your file to connection-profile.json and move it to the contracts/dist folder in your cloned copy of this repository. Open your connection-profile.json file and scroll to the bottom. In the registrar field there is an enrollSecret property. Copy it and use in the following command to generate CA card.
+3. In the Network Monitor of Blockchain service, Change to the 'Overview' page and press the Connection Profile button and      in the popup press Download. Rename your file to connection-profile.json and move it to the contracts/dist folder in your    cloned copy of this repository. Open your connection-profile.json file and scroll to the bottom. In the registrar field      there is an enrollSecret property. Copy it and use in the following command to generate CA card.
 
     **composer card create -f ca.card -p contracts/dist/connection-profile.json -u admin -s <ENROLL_SECRET>**
 
 4. Import CA card:
+
    **composer card import -f ca.card -c ca**
  
 5. To generate Certificates:
+   
    **composer identity request --card ca --path ./credentials -u admin -s <ENROLL_SECRET>**
 
-In Blockchain service, go to 'Member' page. Click on certificates. Popup will be opened.Above command will generate a credentials directory. Copy the contents of credentials/admin-pub.pem to your clipboard and paste in the  certificate textbox of the popup. Submit the popup. Restart the peers. Finally sync the certificates to the channel by opening the 'Channels' page and in the selected Channel press the three dots in the actions column to open the menu. Click Sync Certificate and then Submit in the popup.
+  In Blockchain service, go to 'Member' page. Click on certificates. Popup will be opened.Above command will generate a       credentials directory. Copy the contents of credentials/admin-pub.pem to your clipboard and paste in the  certificate       textbox of the popup. Submit the popup. Restart the peers. Finally sync the certificates to the channel by opening the       'Channels' page and in the selected Channel press the three dots in the actions column to open the menu. Click Sync         Certificate and then Submit in the popup.
 
 6. Create a card with channel and peer admin roles:
 
    **composer card create -f adminCard.card -p ./contracts/dist/connection-profile.json -u admin -c ./credentials/admin-pub.pem -k ./credentials/admin-priv.pem --role PeerAdmin --role ChannelAdmin**
 
 7. Import the admin card:
-   **composer card import -f adminCard.card -c adminCard**
+
+  **composer card import -f adminCard.card -c adminCard**
 
 8. Install the network:
-   **composer network install -c adminCard -a ./contracts/dist/hyperledger-power-watson.bna**
+  
+  **composer network install -c adminCard -a ./contracts/dist/hyperledger-power-watson.bna**
 
 9. Start the network:
-   **composer network start -c adminCard -n hyperledger-power-watson -V 0.2.5 -A admin -C ./credentials/admin-pub.pem -f delete_me.card**
+  
+  **composer network start -c adminCard -n hyperledger-power-watson -V 0.2.5 -A admin -C ./credentials/admin-pub.pem -f delete_me.card**
 
 10. Ping the network:
-    **composer network ping -c admin@hyperledger-power-watson**
+  
+   **composer network ping -c admin@hyperledger-power-watson**
 
-**_If successfuly ping, it will display something like this:
-The connection to the network was successfully tested: hyperledger-power-watson
+   **_If successfuly ping, it will display something like this:
+    The connection to the network was successfully tested: hyperledger-power-watson
         Business network version: 0.2.5
         Composer runtime version: 0.19.18
         participant: org.hyperledger.composer.system.NetworkAdmin#admin
         identity: org.hyperledger.composer.system.Identity#04d0b64e144a1734765a9ed00a84c07a36bc8faa2e3e593ea136f5912509bf7f
 _**
 
-11. Create [Cloudant service](https://console.bluemix.net/catalog/services/cloudantNoSQLDB). In the Cloudant dashboard use the left navigation bar to go to the 'Service credentials page'. Press New credential then press Add in the popup leaving the name as Credentials-1.
+11. Create [Cloudant service](https://console.bluemix.net/catalog/services/cloudantNoSQLDB). In the Cloudant dashboard use       the left navigation bar to go to the 'Service credentials page'. Press New credential then press Add in the popup           leaving the name as Credentials-1.
 
 12. Create a new file called cloudant.json in your working root directory and paste the following JSON into it:
-**{
-    "composer": {
-        "wallet": {
-            "type": "composer-wallet-cloudant",
-            "options": {}
-        }
-    }
-}**
+     **{
+      "composer": {
+         "wallet": {
+             "type": "composer-wallet-cloudant",
+             "options": {}
+         }
+     } 
+   }**
 
-Get the JSON data of your credentials by clicking View credentials on the Credentials-1 row of the 'Service credentials page'. Replace the data in the options field of your cloudant.json file with this JSON adding an additional field to the copied JSON with the value "database": "wallet"
+   Get the JSON data of your credentials by clicking View credentials on the Credentials-1 row of the 'Service credentials      page'. Replace the data in the options field of your cloudant.json file with this JSON adding an additional field to the    copied JSON with the value "database": "wallet"
 
 13. Create the Cloudant database using the value in the JSON for the url field:
 
@@ -82,10 +89,11 @@ Get the JSON data of your credentials by clicking View credentials on the Creden
 
      **cf push hyperledger-power-rest --docker-image hyperledger/composer-rest-server:0.20.3 -i 1 -m 256M --no-start --no-manifest --random-route**
 
-     **_Note: Use rest server version as per your selected plan (Starter plan or Enterprise Plan)_**
+    **_Note: Use rest server version as per your selected plan (Starter plan or Enterprise Plan)_**
 
 18. Set the NODE_CONFIG environment variable for the REST server:
-     **cf set-env hyperledger-power-rest NODE_CONFIG "$NODE_CONFIG"**
+    
+    **cf set-env hyperledger-power-rest NODE_CONFIG "$NODE_CONFIG"**
 
 19. Set the other environment variables for the REST server:
 
