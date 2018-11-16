@@ -24,7 +24,7 @@ This repository provides the way to setup hyperledger network on ibm cloud.
    
    **composer identity request --card ca --path ./credentials -u admin -s <ENROLL_SECRET>**
 
-  In Blockchain service, go to 'Member' page. Click on certificates. Popup will be opened.Above command will generate a       credentials directory. Copy the contents of credentials/admin-pub.pem to your clipboard and paste in the  certificate       textbox of the popup. Submit the popup. Restart the peers. Finally sync the certificates to the channel by opening the       'Channels' page and in the selected Channel press the three dots in the actions column to open the menu. Click Sync         Certificate and then Submit in the popup.
+      In Blockchain service, go to 'Member' page. Click on certificates. Popup will be opened.Above command will generate a       credentials directory. Copy the contents of credentials/admin-pub.pem to your clipboard and paste in the  certificate       textbox of the popup. Submit the popup. Restart the peers. Finally sync the certificates to the channel by opening the       'Channels' page and in the selected Channel press the three dots in the actions column to open the menu. Click Sync         Certificate and then Submit in the popup.
 
 6. Create a card with channel and peer admin roles:
 
@@ -47,12 +47,12 @@ This repository provides the way to setup hyperledger network on ibm cloud.
    **composer network ping -c admin@hyperledger-power-watson**
 
    **_If successfuly ping, it will display something like this:
-    The connection to the network was successfully tested: hyperledger-power-watson
+          The connection to the network was successfully tested: hyperledger-power-watson
         Business network version: 0.2.5
         Composer runtime version: 0.19.18
         participant: org.hyperledger.composer.system.NetworkAdmin#admin
         identity: org.hyperledger.composer.system.Identity#04d0b64e144a1734765a9ed00a84c07a36bc8faa2e3e593ea136f5912509bf7f
-_**
+        _**
 
 11. Create [Cloudant service](https://console.bluemix.net/catalog/services/cloudantNoSQLDB). In the Cloudant dashboard use       the left navigation bar to go to the 'Service credentials page'. Press New credential then press Add in the popup           leaving the name as Credentials-1.
 
@@ -66,7 +66,7 @@ _**
      } 
    }**
 
-   Get the JSON data of your credentials by clicking View credentials on the Credentials-1 row of the 'Service credentials      page'. Replace the data in the options field of your cloudant.json file with this JSON adding an additional field to the    copied JSON with the value "database": "wallet"
+    Get the JSON data of your credentials by clicking View credentials on the Credentials-1 row of the 'Service credentials     page'. Replace the data in the options field of your cloudant.json file with this JSON adding an additional field to         the copied JSON with the value "database": "wallet"
 
 13. Create the Cloudant database using the value in the JSON for the url field:
 
@@ -141,7 +141,7 @@ _**
 
 
 Helpful Links:
-https://console.bluemix.net/docs/services/blockchain/develop_install.html#installing-a-development-environment
-https://hyperledger.github.io/composer/v0.19/installing/update-dev-env
-https://github.com/IBM-Blockchain/vehicle-manufacture
-https://console.bluemix.net/docs/services/blockchain/develop_enterprise.html#deploying-a-business-network
+- https://console.bluemix.net/docs/services/blockchain/develop_install.html#installing-a-development-environment
+- https://hyperledger.github.io/composer/v0.19/installing/update-dev-env
+- https://github.com/IBM-Blockchain/vehicle-manufacture
+- https://console.bluemix.net/docs/services/blockchain/develop_enterprise.html#deploying-a-business-network
