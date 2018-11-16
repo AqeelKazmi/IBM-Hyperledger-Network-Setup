@@ -28,7 +28,7 @@ This repository provides the way to setup hyperledger network on ibm cloud.
 
 6. Create a card with channel and peer admin roles:
 
-   **composer card create -f adminCard.card -p ./contracts/dist/connection-profile.json -u admin -c ./credentials/admin-pub.pem -k ./credentials/admin-priv.pem --role PeerAdmin --role ChannelAdmin**
+      **composer card create -f adminCard.card -p ./contracts/dist/connection-profile.json -u admin -c ./credentials/admin-         pub.pem -k ./credentials/admin-priv.pem --role PeerAdmin --role ChannelAdmin**
 
 7. Import the admin card:
 
@@ -127,7 +127,7 @@ This repository provides the way to setup hyperledger network on ibm cloud.
    
    **cf set-env hyperledger-power-watson-app PLAYGROUND_URL 'https://<PLAYGROUND_URL>'**
 
-26. # Start the application
+26. ## Start the application
  
      Start the REST server:
        **cf start vehicle-manufacture-rest**
