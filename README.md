@@ -127,7 +127,7 @@ This repository provides the way to setup hyperledger network on ibm cloud.
    
    **cf set-env hyperledger-power-watson-app PLAYGROUND_URL 'https://<PLAYGROUND_URL>'**
 
-26. #Start the application
+26. # Start the application
  
      Start the REST server:
        **cf start vehicle-manufacture-rest**
