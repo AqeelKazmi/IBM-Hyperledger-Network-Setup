@@ -3,7 +3,7 @@ This repository provides the way to setup hyperledger network on ibm cloud.
 
 1. Place your fabric codes folder inside "contracts" folder, then create bna using the following command.
   
-  **composer archive create -t dir -n contracts/hyperledger-power-watson -a contracts/dist/hyperledger-power-watson.bna**
+      **composer archive create -t dir -n contracts/hyperledger-power-watson -a contracts/dist/hyperledger-power-                  watson.bna**
 
 2. Then create Blockchain service https://console.bluemix.net/catalog/services/blockchain
    2a. ## Starter Plan
